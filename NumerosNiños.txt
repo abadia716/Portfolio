@@ -1,0 +1,33 @@
+Me gustaria innovar con un componente en react que enseñe a los niños los numero del 1 al 10, he pensado en algo asi como que se muestre el numero en pantalla y el diga el nombre del numero, o que el oiga el numero y lo visualice, podrias intentar darme un ejemplo ?
+¡Claro que sí! Aquí te dejo un ejemplo de cómo podrías crear un componente en React que muestre los números del 1 al 10 y permita al niño interactuar con ellos:
+
+jsx
+Copy code
+import React, { useState } from 'react';
+
+const Numeros = () => {
+  const [numeroActual, setNumeroActual] = useState(1);
+  const [audio, setAudio] = useState(null);
+
+  const numeros = [
+    { nombre: 'uno', imagen: 'https://i.imgur.com/rHv7y26.png', audio: 'https://www.soundjay.com/human/sounds/human-voice-count-01.mp3' },
+    { nombre: 'dos', imagen: 'https://i.imgur.com/YzjZ3qr.png', audio: 'https://www.soundjay.com/human/sounds/human-voice-count-02.mp3' },
+    { nombre: 'tres', imagen: 'https://i.imgur.com/xDL4Mv2.png', audio: 'https://www.soundjay.com/human/sounds/human-voice-count-03.mp3' },
+    { nombre: 'cuatro', imagen: 'https://i.imgur.com/KSs1jrX.png', audio: 'https://www.soundjay.com/human/sounds/human-voice-count-04.mp3' },
+    { nombre: 'cinco', imagen: 'https://i.imgur.com/rfv28wZ.png', audio: 'https://www.soundjay.com/human/sounds/human-voice-count-05.mp3' },
+    { nombre: 'seis', imagen: 'https://i.imgur.com/HuOeJX9.png', audio: 'https://www.soundjay.com/human/sounds/human-voice-count-06.mp3' },
+    { nombre: 'siete', imagen: 'https://i.imgur.com/MSg23uV.png', audio: 'https://www.soundjay.com/human/sounds/human-voice-count-07.mp3' },
+    { nombre: 'ocho', imagen: 'https://i.imgur.com/TXnZdD8.png', audio: 'https://www.soundjay.com/human/sounds/human-voice-count-08.mp3' },
+    { nombre: 'nueve', imagen: 'https://i.imgur.com/2yH8pxN.png', audio: 'https://www.soundjay.com/human/sounds/human-voice-count-09.mp3' },
+    { nombre: 'diez', imagen: 'https://i.imgur.com/AYq3Ve5.png', audio: 'https://www.soundjay.com/human/sounds/human-voice-count-10.mp3' },
+  ];
+
+  const cambiarNumero = (numero) => {
+    setNumeroActual(numero);
+    if (audio) {
+      audio.pause();
+    }
+    const nuevoAudio = new Audio(numeros[numero - 1].audio);
+    nuevoAudio.play();
+    setAudio(nuevoAudio);
+  };
