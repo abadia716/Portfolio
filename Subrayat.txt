@@ -1,0 +1,55 @@
+
+
+
+
+CESAR ABADIA
+Me gustaria ver un componente en React  que subraye la palabra que yo escoja con un diseño espectacular, espero por favor seas muy creativo, porque soy muy burro, puedes?
+¡Por supuesto! Aquí te dejo un ejemplo de un componente React que permite subrayar una palabra o frase seleccionada. El diseño es simple pero llamativo, y puedes personalizarlo como prefieras.
+
+Primero, necesitarás instalar la librería react-highlight-words que nos permitirá subrayar la palabra seleccionada. Puedes hacerlo usando el comando npm install react-highlight-words.
+
+Una vez que tengas la librería instalada, puedes usar el siguiente código como punto de partida:
+
+jsx
+Copy code
+import React, { useState } from 'react';
+import Highlighter from 'react-highlight-words';
+import './Highlighter.css';
+
+const HighlighterComponent = () => {
+  const [searchWords, setSearchWords] = useState('');
+
+  const handleInputChange = (event) => {
+    setSearchWords(event.target.value);
+  };
+
+  return (
+    <div className="highlighter">
+      <h2>Subrayador de palabras</h2>
+      <input type="text" onChange={handleInputChange} value={searchWords} placeholder="Escribe una palabra o frase" />
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam maximus dignissim lorem, a iaculis sapien
+        eleifend vel. Duis euismod tellus ac sapien dignissim, id fringilla metus maximus. Aliquam vitae tellus
+        ultricies, efficitur nibh at, vestibulum enim. Vestibulum ante ipsum primis in faucibus orci luctus et
+        ultrices posuere cubilia curae; Nulla nec eros magna.{' '}
+        <Highlighter searchWords={[searchWords]} autoEscape={true} textToHighlight="Mauris ut velit risus. Ut vel elit vitae elit tincidunt pharetra. Donec in lacus justo." />
+      </p>
+      <p>
+        Duis maximus turpis nec eros molestie, at tempor enim blandit. Fusce ultricies mauris non lorem hendrerit
+        egestas. Aliquam dignissim odio id mauris ultrices, nec efficitur dolor aliquam. Praesent bibendum mi at
+        est venenatis ullamcorper. Suspendisse tincidunt, felis id tempor varius, quam lorem lobortis purus, eu
+        posuere tortor mauris sed turpis.{' '}
+        <Highlighter
+          searchWords={[searchWords]}
+          autoEscape={true}
+          textToHighlight="Nam imperdiet odio vel orci laoreet, quis suscipit sem feugiat. Suspendisse rutrum pharetra nisi eu convallis."
+        />
+      </p>
+    </div>
+  );
+};
+
+export default HighlighterComponent;
+En este componente, hemos creado un campo de texto en el que puedes escribir la palabra o frase que quieres subrayar. Luego, hemos creado dos párrafos con texto de ejemplo. En cada uno de ellos, hemos usado el componente Highlighter para subrayar la palabra o frase que coincida con lo que hemos escrito en el campo de texto.
+
+El componente Highlighter recibe tres propiedades: searchWords, que es un array de palabras o frases a buscar en el texto; autoEscape, que indica si se deben escapar automáticamente los caracteres especiales (como las comillas) en el texto; y textToHighlight, que es el texto que se va a subrayar.
