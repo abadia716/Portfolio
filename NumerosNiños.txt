@@ -31,3 +31,52 @@ const Numeros = () => {
     nuevoAudio.play();
     setAudio(nuevoAudio);
   };
+  
+  return (
+  <div>
+    <h1>Números infantiles</h1>
+    <div className="numero-container">
+      <div className="numero-item">
+        <button onClick={() => playAudio(1)}>1</button>
+        <p>Uno</p>
+      </div>
+      <div className="numero-item">
+        <button onClick={() => playAudio(2)}>2</button>
+        <p>Dos</p>
+      </div>
+      <div className="numero-item">
+        <button onClick={() => playAudio(3)}>3</button>
+        <p>Tres</p>
+      </div>
+      <div className="numero-item">
+        <button onClick={() => playAudio(4)}>4</button>
+        <p>Cuatro</p>
+      </div>
+      <div className="numero-item">
+        <button onClick={() => playAudio(5)}>5</button>
+        <p>Cinco</p>
+      </div>
+      <div className="numero-item">
+        <button onClick={() => playAudio(6)}>6</button>
+        <p>Seis</p>
+      </div>
+      <div className="numero-item">
+        <button onClick={() => playAudio(7)}>7</button>
+        <p>Siete</p>
+      </div>
+      <div className="numero-item">
+        <button onClick={() => playAudio(8)}>8</button>
+        <p>Ocho</p>
+      </div>
+      <div className="numero-item">
+        <button onClick={() => playAudio(9)}>9</button>
+        <p>Nueve</p>
+      </div>
+      <div className="numero-item">
+        <button onClick={() => playAudio(10)}>10</button>
+        <p>Diez</p>
+      </div>
+    </div>
+  </div>
+);
+
