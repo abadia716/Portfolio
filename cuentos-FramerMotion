@@ -1,0 +1,156 @@
+Para aplicar Framer Motion a este componente de cuentos infantiles en PDF, primero debemos instalar la biblioteca en nuestro proyecto. Para hacer esto, podemos ejecutar el siguiente comando en nuestra terminal:
+
+Copy code
+npm install framer-motion
+Una vez instalada la biblioteca, podemos utilizarla en nuestro componente importándola al principio del archivo:
+
+python
+Copy code
+import { motion } from 'framer-motion';
+Ahora podemos envolver nuestro elemento div con la clase "cuento" en un componente motion.div para aplicar animaciones. Podemos hacerlo de la siguiente manera:
+
+php
+Copy code
+<motion.div key={index} className="cuento" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+  <div className="cuento__pagina" data-page-number={1}></div>
+  <div className="cuento__pagina" data-page-number={2}></div>
+  <div className="cuento__pagina" data-page-number={3}></div>
+  <div className="cuento__pagina" data-page-number={4}></div>
+</motion.div>
+Aquí hemos añadido las propiedades initial, animate y transition al componente motion.div. Estas propiedades permiten especificar el estado inicial, estado final y la duración de la animación respectivamente. En este caso, estamos haciendo que cada cuento se desvanezca suavemente cuando se cargue por primera vez, animando su opacidad del valor 0 (invisible) al valor 1 (visible) durante un segundo.
+
+También podemos añadir otras propiedades a los componentes motion.div para crear animaciones más complejas. Por ejemplo, podríamos añadir la propiedad whileHover para hacer que cada cuento se agrande ligeramente cuando el cursor del ratón se coloque sobre él:
+
+php
+Copy code
+<motion.div key={index} className="cuento" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} whileHover={{ scale: 1.1 }}>
+  <div className="cuento__pagina" data-page-number={1}></div>
+  <div className="cuento__pagina" data-page-number={2}></div>
+  <div className="cuento__pagina" data-page-number={3}></div>
+  <div className="cuento__pagina" data-page-number={4}></div>
+</motion.div>
+Esto hace que cada cuento se agrande un 10% cuando el cursor del ratón se coloque sobre él.
+
+Espero que esto te haya ayudado a entender cómo se utiliza Framer Motion en React. ¡No dudes en preguntarme si tienes alguna otra duda o si necesitas ayuda con algo más!
+
+
+
+
+CESAR ABADIA
+si pero sin el css es poco claro para mi
+Claro, te muestro el ejemplo con el CSS que hemos utilizado:
+
+jsx
+Copy code
+import React, { useState, useEffect } from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import pdfjsLib from 'pdfjs-dist';
+import { motion } from 'framer-motion';
+import './CuentosInfantiles.css';
+
+const CuentosInfantiles = () => {
+  const [pdfs, setPdfs] = useState([]);
+
+  useEffect(() => {
+    // Cargar los PDFs
+    const cargarPdfs = async () => {
+      const urls = [
+        'https://example.com/cuento1.pdf',
+        'https://example.com/cuento2.pdf',
+        'https://example.com/cuento3.pdf',
+        'https://example.com/cuento4.pdf',
+        'https://example.com/cuento5.pdf',
+      ];
+      const pdfs = [];
+      for (let i = 0; i < urls.length; i++) {
+        try {
+          const pdf = await pdfjsLib.getDocument(urls[i]).promise;
+          pdfs.push(pdf);
+        } catch (error) {
+          console.error(`Error al cargar el PDF ${i + 1}:`, error);
+        }
+      }
+      setPdfs(pdfs);
+    };
+    cargarPdfs();
+  }, []);
+
+  const slideVariant = {
+    hidden: { opacity: 0, x: -200 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+  };
+
+  return (
+    <div className="cuentos-infantiles">
+      <h2>Cuentos infantiles</h2>
+      {pdfs.length > 0 ? (
+        <Slider {...settings}>
+          {pdfs.map((pdf, index) => (
+            <motion.div
+              key={index}
+              className="cuento"
+              variants={slideVariant}
+              initial="hidden"
+              animate="visible"
+            >
+              <div className="cuento__pagina" data-page-number={1}></div>
+              <div className="cuento__pagina" data-page-number={2}></div>
+              <div className="cuento__pagina" data-page-number={3}></div>
+              <div className="cuento__pagina" data-page-number={4}></div>
+            </motion.div>
+          ))}
+        </Slider>
+      ) : (
+        <div>Cargando...</div>
+      )}
+    </div>
+  );
+};
+
+export default CuentosInfantiles;
+Y este sería el CSS:
+
+css
+Copy code
+.cuentos-infantiles {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 32px;
+}
+
+.cuento {
+  background-color: #fff;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  width: 320px;
+  height: 400px;
+}
+
+.cuento__pagina {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content:
