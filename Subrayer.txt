@@ -1,0 +1,85 @@
+ Para crear este componente en React que subraye una palabra, puedes utilizar la propiedad CSS text-decoration con el valor underline, junto con la librería react-tippy para mostrar un tooltip al pasar el mouse sobre la palabra subrayada.
+
+Aquí te dejo un ejemplo de cómo puedes hacerlo:
+
+jsx
+Copy code
+import React from 'react';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import './UnderlineWord.css';
+
+const UnderlineWord = ({ text, word }) => {
+  const words = text.split(' ');
+
+  return (
+    <div className="underline-word">
+      {words.map((w, i) => {
+        const isHighlighted = w === word;
+        return (
+          <React.Fragment key={i}>
+            <span className={isHighlighted ? 'underline-word__highlighted' : ''}>
+              {w}
+            </span>
+            {isHighlighted && (
+              <Tippy content="¡Palabra destacada!">
+                <span className="underline-word__tooltip">?</span>
+              </Tippy>
+            )}
+            {i < words.length - 1 && ' '}
+          </React.Fragment>
+        );
+      })}
+    </div>
+  );
+};
+
+export default UnderlineWord;
+En el archivo CSS UnderlineWord.css puedes agregar los estilos para personalizar el subrayado y el tooltip:
+
+css
+Copy code
+.underline-word {
+  display: inline-block;
+  position: relative;
+}
+
+.underline-word__highlighted {
+  text-decoration: underline;
+  text-decoration-color: #ffbb00;
+}
+
+.underline-word__tooltip {
+  display: inline-block;
+  margin-left: 4px;
+  color: #fff;
+  background-color: #ffbb00;
+  padding: 4px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+Para utilizar este componente en tu aplicación, simplemente importa y utiliza el componente UnderlineWord, pasándole como prop el texto completo y la palabra que deseas subrayar:
+
+jsx
+Copy code
+import React from 'react';
+import UnderlineWord from './UnderlineWord';
+
+const App = () => {
+  return (
+    <div>
+      <h1>
+        Bienvenidos a mi <UnderlineWord text="aplicación web" word="web" />!
+      </h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ante et
+        erat condimentum scelerisque. Nullam <UnderlineWord text="commodo" word="commodo" /> a
+        arcu sed vestibulum. Mauris aliquam, arcu eget pharetra <UnderlineWord text="fermentum" word="fermentum" />,
+        nibh tellus volutpat velit, sit amet <UnderlineWord text="varius" word="varius" />
+        tortor odio et massa. Etiam consequat faucibus mauris ac pulvinar.
+      </p>
+    </div>
+  );
+};
+
+export default App;
