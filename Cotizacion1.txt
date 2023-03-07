@@ -1,0 +1,111 @@
+¡Claro! Entiendo lo que quieres decir. Para hacerlo más dinámico y atractivo, puedes agregar estilos y personalizar el diseño del documento PDF utilizando CSS. La biblioteca "react-pdf" te permite agregar estilos utilizando una sintaxis similar a CSS.
+
+Aquí te dejo un ejemplo con un diseño más elaborado:
+
+jsx
+Copy code
+import React from 'react';
+import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
+
+import logo from './logo.png';
+
+const styles = StyleSheet.create({
+  page: {
+    backgroundColor: '#ffffff',
+    padding: 50,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 30,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textTransform: 'uppercase',
+    letterSpacing: 2,
+  },
+  subtitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  text: {
+    fontSize: 12,
+    marginBottom: 5,
+  },
+  tableHeader: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#333333',
+    borderBottomStyle: 'solid',
+    alignItems: 'center',
+    paddingBottom: 5,
+    marginBottom: 10,
+  },
+  tableHeaderText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    flex: 1,
+  },
+  tableRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  tableRowText: {
+    fontSize: 12,
+    flex: 1,
+  },
+  tableRowAmount: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    flex: 0.5,
+  },
+  total: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 20,
+  },
+  logo: {
+    width: 100,
+    height: 50,
+    objectFit: 'contain',
+  },
+});
+
+function QuotePDF({ quote }) {
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.header}>
+          <Image src={logo} style={styles.logo} />
+          <Text style={styles.text}>Fecha: {quote.date}</Text>
+        </View>
+        <Text style={styles.title}>Cotización</Text>
+        <View style={styles.section}>
+          <Text style={styles.subtitle}>Datos del cliente:</Text>
+          <Text style={styles.text}>Nombre: {quote.customerName}</Text>
+          <Text style={styles.text}>Correo electrónico: {quote.customerEmail}</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.subtitle}>Productos:</Text>
+          <View style={styles.tableHeader}>
+            <Text style={styles.tableHeaderText}>Producto</Text>
+            <Text style={styles.tableHeaderText}>Cantidad</Text>
+            <Text style={styles.tableHeaderText}>Precio</Text>
+          </View>
+          {quote.products.map(product => (
+            <View key={product.id} style={styles.tableRow}>
+              <Text style={styles.tableRowText}>{product.name}</Text>
+              <Text style={styles.tableRowAmount}>{product.quantity}</Text>
+              <Text style={styles.tableRowAmount}>${product.price}</Text>
+            </View>
+          ))}
+        </View>
+        <Text style={styles.total}>Total: ${quote.total}</Text>
+      </Page>
+    </Document>
